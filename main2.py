@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import yt_dlp
+import yfinance as yahooFinance
 
 app = Flask(__name__)
 
@@ -39,6 +40,15 @@ def stream_audio():
         audio_url = info['url']  # URL for streaming the audio
     
     return render_template('stream.html', audio_url=audio_url)
+
+
+@app.get("/ticker/<ticker>")
+def read_root(ticker):
+    stockdata = yahooFinance.Ticker(ticker)
+    stockdata = stockdata.info
+    return {"data": stockdata}
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
