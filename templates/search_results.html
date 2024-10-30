@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>YouTube Search</h1>
+    <form action="/search" method="post">
+        <label for="query">Search:</label>
+        <input type="text" id="query" name="query" required>
+        <button type="submit">Search</button>
+    </form>
+    <h1>Search Results</h1>
+    <ul>
+        {% for video in results %}
+           
+            <li>
+                <img src="{{ video.thumbnails[0]['url'] }}" alt="Thumbnail" width="120">
+                <a href="/stream?q=https://www.youtube.com/watch?v={{ video.id }}" target="_blank">
+                    {{ video.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
